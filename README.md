@@ -33,7 +33,7 @@ This is a clip from the [Still Processing](https://www.nytimes.com/podcasts/stil
 
 5. Create a Google Cloud Storage bucket to hold your audio. See [documentation](https://cloud.google.com/storage/).
 
-6. Turn your audio recording into a FLAC file (Audacity works great). Take note of the sample rate. 
+6. Turn your audio recording into a FLAC file (Audacity works great). Take note of the sample rate. If you have a stereo recording, mix it down to mono. (The service only works with single channel audio right now.)
 
 7. Upload the audio recording onto your Google Cloud Storage bucket, and make it public. (Again, not the best security practice, but this is a fast way to get started.) 
 
@@ -74,6 +74,7 @@ Common errors:
 1. The sample rate was entered incorrectly.
 2. Your audio file wasn't set to public.
 3. You didn't enable data logging.
+4. You didn't mix down your stereo audio to mono.
 
 
 ## Notes

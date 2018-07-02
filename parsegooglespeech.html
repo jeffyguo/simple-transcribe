@@ -62,8 +62,6 @@
 
         document.getElementById("localaudio").onchange = loadAudio;
 
-
-
         // window.addEventListener('keydown', function (event) {
         //   audio =  document.getElementById("audioplayer");
         //   var key = event.which || event.keyCode;
@@ -160,6 +158,10 @@
       timeInSec = parseFloat(timeInSec);
       var minute =  Math.floor(timeInSec / 60);
       var sec = Math.round(timeInSec - minute * 60);
+      if(sec == 60){
+        minute = minute+1;
+        sec = 0;
+      }
       return minute +"m " + sec + "s";
     }
 
