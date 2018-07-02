@@ -49,8 +49,6 @@ This is a clip from the [Still Processing](https://www.nytimes.com/podcasts/stil
 
 Note 1: We're making the HTTP calls with [requests](http://docs.python-requests.org/en/latest/user/install/), so make sure that's installed. 
 
-Note 2: By default the script is set up to tr 
-
 ## Running the script
 The script will initiate a long running audio recognition job using the Google Cloud HTTP interface. Then it will poll the job every 10 seconds until the speech recognition is finished. 
 
