@@ -1,4 +1,4 @@
-# simple-google-speech-transcribe
+# simple-transcribe
 The worst part of being a reporter is having to transcribe hours and hours of tape. Most of the time you save time by taking rough notes, going back to the tape only to transcribe key quotes. But if you need that full transcript — because you couldn't take notes in the field, or you're publishing the exchange verbatim — an hour of tape can easily require five or more hours of typing.
 
 Meanwhile, Google's machine learning speech recognition project has been producing eerily accurate results. An April 2018 update introduced some [enhanced models](https://cloud.google.com/speech-to-text/) that added automatic punctuation and further increased accuracy. There's also a new model specificially for processing phone calls, which are filtered and compressed.
