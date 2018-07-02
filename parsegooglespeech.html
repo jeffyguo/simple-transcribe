@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<style>
+    span:hover {
+        background-color: yellow;
+    }
+
+/*    span {
+        cursor: pointer;
+    }*/
+
+    audio {
+        width: 90%;
+    }
+
+    div {
+      margin: 2px;
+    }
+
+    form {
+      margin: 10px;
+    }
+
+    p {
+      margin: 0;
+    }
+    #transcriptarea{
+      margin: 10px;
+    }
+
+    #transcriptarea:focus{
+      outline: none;
+    }
+
+    .timestamp{
+      color:gray;
+      float:left;
+      width:3.5em;
+    }
+
+    .linetext{
+      float:left;
+      width:85%;
+    }
+
+    .rowtext {
+      display:inline-block;
+      width: 100%;
+    }
+
+    
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+</script>
+
+<script>
+    window.onload = function() {
+        // document.getElementById("submit-button").addEventListener("click", submitButtonFunction);
+
+        document.getElementById("transcriptjson").onchange = loadTranscript;
+
+        document.getElementById("localaudio").onchange = loadAudio;
+
+
+
+        // window.addEventListener('keydown', function (event) {
+        //   audio =  document.getElementById("audioplayer");
+        //   var key = event.which || event.keyCode;
+        //   if (key === 32) { // spacebar
+        //     // eat the spacebar, so it does not scroll the page
+        //     event.preventDefault();
+        //     audio.paused ? audio.play() : audio.pause();
+        //   };
+        // });
+
+      }
+
+    function submitButtonFunction() {
+        loadTranscript();
+        loadAudio();
+    }
+
+    function loadAudio() {
+        var audio = document.getElementById("audioplayer");
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            audio.src = event.target.result;
+            audio.load();
+        }
+        reader.readAsDataURL($('#localaudio').prop('files')[0]);
+    }
+
+    //     function loadAudio() {
+    //     var $audio = $('#audioplayer');
+    //     var reader = new FileReader();
+    //     reader.onload = function(event) {
+    //         $audio.attr('src', event.target.result);
+    //     }
+    //     reader.readAsDataURL($('#localaudio').prop('files')[0]);
+    // }
+
+
+    function loadTranscript() {
+
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var contents = event.target.result;
+            renderJSONWords(JSON.parse(contents));
+        };
+        reader.readAsText($('#transcriptjson').prop('files')[0]);
+    }
+
+    function renderJSONWords(transcript) {
+        $("#transcriptarea").empty();
+
+        transcript.response.results.forEach(function(line) {
+            newline = $("<div class = \"rowtext\"></div>");
+
+            timestamp = $("<div class = \"timestamp\"><p>" + convertToMinutes(line.alternatives[0].words[0].startTime)+"</p></div>");
+            newline.append(timestamp);
+
+            linetext = $("<div class = \"linetext\"></div>");
+
+            line.alternatives[0].words.forEach(function(word) {
+                wordspan = $("<span>" + word.word + " </span>");
+                wordspan.attr("timestart", parseFloat(word.startTime));
+                wordspan.click(function() {
+                    //console.log($(this).attr("timestart"));
+                    document.getElementById("audioplayer").currentTime = $(this).attr("timestart");
+                    document.getElementById("audioplayer").play();
+
+                });
+                linetext.append(wordspan);
+            });
+
+            linetext.wrapInner("<p></p>");
+            newline.append(linetext);
+            $("#transcriptarea").append(newline);
+        });
+
+
+        // function renderJSON(transcript){
+        // $("#transcriptarea").empty();
+        // transcript.response.results.forEach(function(line){
+        //   console.log(line.alternatives[0]);
+        //   newline = $("<div>" + line.alternatives[0].transcript + "</div>");
+        //   newline = newline.attr("timestart", parseFloat(line.alternatives[0].words[0].startTime));
+        //   newline.click(function(){
+        //     console.log($(this).attr("timestart"));
+        //     var vid = document.getElementById("myAudio");
+        //     vid.currentTime = $(this).attr("timestart");
+        //   });
+        //   $("#transcriptarea").append(newline);
+
+        // });
+        // }
+
+    function convertToMinutes(timeInSec){
+      timeInSec = parseFloat(timeInSec);
+      var minute =  Math.floor(timeInSec / 60);
+      var sec = Math.round(timeInSec - minute * 60);
+      return minute +"m " + sec + "s";
+    }
+
+    }
+</script>
+
+<body>
+
+    <form onsubmit="return false">
+        <div>
+        <label for="transcriptjson">Choose transcript JSON file:</label>
+        <input type="file" id="transcriptjson">
+        </div>
+        <div>
+        <label for="localaudio">Choose audio file:</label>
+        <input type="file" id="localaudio">
+        </div>
+        <!-- <input type="submit" id="submit-button"> -->
+    </form>
+
+    <audio controls id="audioplayer"></audio>
+
+    <div id="transcriptarea" contenteditable="True">
+    </div>
+
+</body>

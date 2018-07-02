@@ -1,0 +1,55 @@
+{
+  "name": "7521767155379624937",
+  "metadata": {
+    "@type": "type.googleapis.com/google.cloud.speech.v1p1beta1.LongRunningRecognizeMetadata",
+    "progressPercent": 100,
+    "startTime": "2018-07-02T14:31:25.372732Z",
+    "lastUpdateTime": "2018-07-02T14:31:26.572048Z"
+  },
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.cloud.speech.v1p1beta1.LongRunningRecognizeResponse",
+    "results": [
+      {
+        "alternatives": [
+          {
+            "transcript": "How old is the Brooklyn Bridge?",
+            "confidence": 0.85666066,
+            "words": [
+              {
+                "startTime": "0s",
+                "endTime": "0.300s",
+                "word": "How"
+              },
+              {
+                "startTime": "0.300s",
+                "endTime": "0.600s",
+                "word": "old"
+              },
+              {
+                "startTime": "0.600s",
+                "endTime": "0.700s",
+                "word": "is"
+              },
+              {
+                "startTime": "0.700s",
+                "endTime": "1s",
+                "word": "the"
+              },
+              {
+                "startTime": "1s",
+                "endTime": "1.300s",
+                "word": "Brooklyn"
+              },
+              {
+                "startTime": "1.300s",
+                "endTime": "1.600s",
+                "word": "Bridge?"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
